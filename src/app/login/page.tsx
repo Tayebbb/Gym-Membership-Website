@@ -1,18 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Dumbbell, Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react";
 import { authApi } from "@/lib/api";
 
-const DEMO_EMAIL = "mohammed.tayeb@example.com";
-const DEMO_PASSWORD = "MohammedTayeb123!";
+const DEMO_EMAIL = "demo@example.com";
+const DEMO_PASSWORD = "DemoPassword123!";
 
 export default function LoginPage() {
   const router = useRouter();
-  const autoLoginAttempted = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -21,16 +20,6 @@ export default function LoginPage() {
     password: DEMO_PASSWORD,
     rememberMe: true,
   });
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === "production" || autoLoginAttempted.current) {
-      return;
-    }
-
-    autoLoginAttempted.current = true;
-    handleSubmit({ preventDefault: () => undefined } as React.FormEvent);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
